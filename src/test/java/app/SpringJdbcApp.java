@@ -1,4 +1,4 @@
-package com.scm.app;
+package app;
 
 import com.scm.dao.CustomerDAO;
 import com.scm.model.Customer;
