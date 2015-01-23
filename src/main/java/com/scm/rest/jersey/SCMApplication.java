@@ -2,6 +2,7 @@ package com.scm.rest.jersey;
 
 import com.scm.rest.ScmPrototypeResource;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
@@ -17,5 +18,6 @@ public class SCMApplication  extends ResourceConfig {
         register(RequestContextFilter.class);
         register(ScmPrototypeResource.class);
         register(JacksonFeature.class);
+        register(MultiPartFeature.class);
     }
 }
