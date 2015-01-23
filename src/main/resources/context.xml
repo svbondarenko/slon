@@ -6,4 +6,12 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     <import resource="database/datasource.xml"/>
     <import resource="model/customer.xml"/>
 
+    <bean name="customerDAO" class="com.scm.dao.impl.CustomerDAOImpl"/>
+    <bean name="scmService" class="com.scm.service.impl.ScmPrototypeServiceImpl">
+        <constructor-arg ref="customerDAO"/>
+    </bean>
+    <bean name="scmResource" class="com.scm.rest.ScmPrototypeResource">
+        <constructor-arg ref="scmService"/>
+    </bean>
+
 </beans>

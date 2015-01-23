@@ -5,9 +5,14 @@ package com.scm.model;
  */
 public class Customer {
 
-    private final int id;
+    private  int id;
     private final String name;
     private final int status;
+
+    public Customer(String name, int status) {
+        this.name = name;
+        this.status = status;
+    }
 
     public Customer(int id, String name, int status) {
         this.id = id;
@@ -33,4 +38,5 @@ public class Customer {
                 ", status=" + status +
                 '}';
     }
+
 }

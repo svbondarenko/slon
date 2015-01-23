@@ -2,6 +2,7 @@ package com.scm.rest;
 
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;
+import com.scm.service.ScmPrototypeService;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +19,15 @@ import java.util.List;
 
 public class ScmPrototypeResource {
 
+    private ScmPrototypeService scmPrototypeService;
+
+
     public static final String PREFIX = "stream2file";
     public static final String SUFFIX = ".tmp";
 
+    public ScmPrototypeResource(ScmPrototypeService scmPrototypeService) {
+        this.scmPrototypeService = scmPrototypeService;
+    }
 
     @GET
     @Consumes({MediaType.MULTIPART_FORM_DATA})
@@ -35,12 +42,15 @@ public class ScmPrototypeResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response pushCSV(@FormDataParam("file") InputStream fileInputStream) throws IOException {
 
-
         //Get the CSVReader instance with specifying the delimiter to be used
         List<List<String>> content = getCSVContent(fileInputStream);
 
-
-        return Response.status(200).entity("Hello word").build();
+        try {
+            scmPrototypeService.add(content);
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+        return Response.status(200).build();
 
     }
 
