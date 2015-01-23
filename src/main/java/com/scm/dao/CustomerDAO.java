@@ -2,10 +2,14 @@ package com.scm.dao;
 
 import com.scm.model.Customer;
 
+import java.util.List;
+
 /**
  * Created by yholub on 1/22/2015.
  */
 public interface CustomerDAO {
-    public void add(Customer customer);
-    public Customer getById(int customerId);
+    void add(Customer customer);
+    void add(List<Customer> customers);
+    Customer getById(int customerId);
+    List<Customer> getAll();
 }
