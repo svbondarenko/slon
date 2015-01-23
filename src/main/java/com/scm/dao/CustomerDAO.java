@@ -11,4 +11,5 @@ public interface CustomerDAO {
     void add(Customer customer);
     void add(List<Customer> customers);
     Customer getById(int customerId);
+    List<Customer> getAll();
 }

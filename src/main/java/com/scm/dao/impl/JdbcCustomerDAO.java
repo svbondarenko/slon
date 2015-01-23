@@ -15,6 +15,7 @@ import java.util.List;
 public class JdbcCustomerDAO extends SimpleJdbcDaoSupport implements CustomerDAO {
 
     private static final String CUSTOMER_SQL_INSERT = "INSERT INTO CUSTOMER (NAME, STATUS) VALUES (?, ?)";
+    private static final String CUSTOMER_SQL_SELECT_ALL = "SELECT * FROM CUSTOMER";
     private static final String CUSTOMER_SQL_SELECT_BY_ID = "SELECT * FROM CUSTOMER WHERE ID = ?";
 
     @Override
@@ -43,5 +44,17 @@ public class JdbcCustomerDAO extends SimpleJdbcDaoSupport implements CustomerDAO
             customer = null;
         }
         return customer;
+    }
+
+    @Override
+    public List<Customer> getAll() {
+        List<Customer> customers;
+
+        try {
+            customers = getSimpleJdbcTemplate().query(CUSTOMER_SQL_SELECT_ALL, new CustomerRowMapper());
+        } catch (EmptyResultDataAccessException ex) {
+            customers = null;
+        }
+        return customers;
     }
 }

@@ -36,15 +36,11 @@ public class SpringJdbcApp {
 
         customerDAO.add(customers);
 
-        // select fixme: TBD
+        // select all
 
-        Customer customerA = customerDAO.getById(1);
-        System.out.println("Customer A : " + customerA);
-
-        Customer customerB = customerDAO.getById(2);
-        System.out.println("Customer B : " + customerB);
-
-        Customer customerC = customerDAO.getById(3);
-        System.out.println("Customer C : " + customerC);
+        List<Customer> all = customerDAO.getAll();
+        for (Customer customer : all) {
+            System.out.println(customer);
+        }
     }
 }
