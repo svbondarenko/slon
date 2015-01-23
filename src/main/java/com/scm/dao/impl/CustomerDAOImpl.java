@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by yholub on 1/22/2015.
  */
-public class JdbcCustomerDAO extends SimpleJdbcDaoSupport implements CustomerDAO {
+public class CustomerDAOImpl extends SimpleJdbcDaoSupport implements CustomerDAO {
 
     private static final String CUSTOMER_SQL_INSERT = "INSERT INTO CUSTOMER (NAME, STATUS) VALUES (?, ?)";
     private static final String CUSTOMER_SQL_SELECT_ALL = "SELECT * FROM CUSTOMER";
