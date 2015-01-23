@@ -1,7 +1,23 @@
 package com.scm.rest;
 
-/**
- * Created by Serhii_Bondarenko on 1/22/2015.
- */
+import org.springframework.stereotype.Component;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+@Component
+@Path("prototype")
+@Consumes({MediaType.MULTIPART_FORM_DATA})
+@Produces(MediaType.APPLICATION_JSON)
 public class ScmPrototypeResource {
+
+    @GET
+    public Response test(){
+        return Response.status(200).entity("Hello word").build();
+    }
+
 }
