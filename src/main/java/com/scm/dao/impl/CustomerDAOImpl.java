@@ -8,16 +8,22 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by yholub on 1/22/2015.
  */
-public class CustomerDAOImpl extends SimpleJdbcDaoSupport implements CustomerDAO {
+public class CustomerDAOImpl  implements CustomerDAO {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private DataSource dataSource;
+    private JdbcTemplate jdbcTemplateObject;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+    }
 
     private static final String CUSTOMER_SQL_INSERT = "INSERT INTO CUSTOMER (NAME, STATUS) VALUES (?, ?)";
     private static final String CUSTOMER_SQL_SELECT_ALL = "SELECT * FROM CUSTOMER";
@@ -25,7 +31,7 @@ public class CustomerDAOImpl extends SimpleJdbcDaoSupport implements CustomerDAO
 
     @Override
     public void add(Customer customer) {
-        getSimpleJdbcTemplate().update(
+        jdbcTemplateObject.update(
                 CUSTOMER_SQL_INSERT, customer.getName(), customer.getStatus());
     }
 
@@ -35,7 +41,7 @@ public class CustomerDAOImpl extends SimpleJdbcDaoSupport implements CustomerDAO
         for (Customer customer : customers) {
             batchArgs.add(new Object[] {customer.getName(), customer.getStatus()});
         }
-        getSimpleJdbcTemplate().batchUpdate(CUSTOMER_SQL_INSERT, batchArgs);
+        jdbcTemplateObject.batchUpdate(CUSTOMER_SQL_INSERT, batchArgs);
     }
 
     @Override
@@ -43,7 +49,7 @@ public class CustomerDAOImpl extends SimpleJdbcDaoSupport implements CustomerDAO
         Customer customer;
 
         try {
-            customer = getSimpleJdbcTemplate().queryForObject(
+            customer = jdbcTemplateObject.queryForObject(
                     CUSTOMER_SQL_SELECT_BY_ID, new CustomerRowMapper(), customerId);
         } catch (EmptyResultDataAccessException ex) {
             customer = null;
@@ -56,7 +62,7 @@ public class CustomerDAOImpl extends SimpleJdbcDaoSupport implements CustomerDAO
         List<Customer> customers;
 
         try {
-            customers = getSimpleJdbcTemplate().query(CUSTOMER_SQL_SELECT_ALL, new CustomerRowMapper());
+            customers = jdbcTemplateObject.query(CUSTOMER_SQL_SELECT_ALL, new CustomerRowMapper());
         } catch (EmptyResultDataAccessException ex) {
             customers = null;
         }
