@@ -3,9 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <repositories>
 
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>libs-release</name>
+            <url>http://10.17.128.111:8081/artifactory/libs-release</url>
+        </repository>
     </repositories>
+
     <groupId>SCM</groupId>
     <artifactId>SCM</artifactId>
     <packaging>war</packaging>
@@ -19,6 +28,13 @@
     </properties>
 
     <dependencies>
+
+        <!--JDBC-->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
