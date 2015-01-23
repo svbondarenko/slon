@@ -11,11 +11,12 @@ import javax.ws.rs.core.Response;
 
 @Component
 @Path("prototype")
-@Consumes({MediaType.MULTIPART_FORM_DATA})
-@Produces(MediaType.APPLICATION_JSON)
+
 public class ScmPrototypeResource {
 
     @GET
+    @Consumes({MediaType.MULTIPART_FORM_DATA})
+    @Produces(MediaType.APPLICATION_JSON)
     public Response test(){
         return Response.status(200).entity("Hello word").build();
     }
