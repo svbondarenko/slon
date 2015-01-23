@@ -3,10 +3,8 @@ package com.scm.dao.impl;
 import com.scm.dao.CustomerDAO;
 import com.scm.model.Customer;
 import com.scm.model.CustomerRowMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -15,19 +13,17 @@ import java.util.List;
 /**
  * Created by yholub on 1/22/2015.
  */
-public class CustomerDAOImpl  implements CustomerDAO {
-
-    private DataSource dataSource;
-    private JdbcTemplate jdbcTemplateObject;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-        this.jdbcTemplateObject = new JdbcTemplate(dataSource);
-    }
+public class CustomerDAOImpl implements CustomerDAO {
 
     private static final String CUSTOMER_SQL_INSERT = "INSERT INTO CUSTOMER (NAME, STATUS) VALUES (?, ?)";
     private static final String CUSTOMER_SQL_SELECT_ALL = "SELECT * FROM CUSTOMER";
     private static final String CUSTOMER_SQL_SELECT_BY_ID = "SELECT * FROM CUSTOMER WHERE ID = ?";
+
+    private JdbcTemplate jdbcTemplateObject;
+
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+    }
 
     @Override
     public void add(Customer customer) {
@@ -39,7 +35,7 @@ public class CustomerDAOImpl  implements CustomerDAO {
     public void add(List<Customer> customers) {
         List<Object[]> batchArgs = new ArrayList<Object[]>();
         for (Customer customer : customers) {
-            batchArgs.add(new Object[] {customer.getName(), customer.getStatus()});
+            batchArgs.add(new Object[]{customer.getName(), customer.getStatus()});
         }
         jdbcTemplateObject.batchUpdate(CUSTOMER_SQL_INSERT, batchArgs);
     }
