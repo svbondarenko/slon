@@ -3,7 +3,9 @@ package com.scm.dao.impl;
 import com.scm.dao.CustomerDAO;
 import com.scm.model.Customer;
 import com.scm.model.CustomerRowMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
 import java.util.ArrayList;
@@ -13,6 +15,9 @@ import java.util.List;
  * Created by yholub on 1/22/2015.
  */
 public class CustomerDAOImpl extends SimpleJdbcDaoSupport implements CustomerDAO {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     private static final String CUSTOMER_SQL_INSERT = "INSERT INTO CUSTOMER (NAME, STATUS) VALUES (?, ?)";
     private static final String CUSTOMER_SQL_SELECT_ALL = "SELECT * FROM CUSTOMER";

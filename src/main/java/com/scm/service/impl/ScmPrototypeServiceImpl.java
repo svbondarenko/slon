@@ -20,7 +20,7 @@ public class ScmPrototypeServiceImpl implements ScmPrototypeService {
 
     @Override
     public void add(List<List<String>> csvData) {
-        List<Customer> customers = new ArrayList<>();
+        List<Customer> customers = new ArrayList<Customer>();
         for (List<String> line : csvData) {
             Customer customer = new Customer(line.get(0), Integer.valueOf(line.get(1)));
         }

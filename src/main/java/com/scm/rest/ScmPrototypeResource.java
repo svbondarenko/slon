@@ -25,6 +25,9 @@ public class ScmPrototypeResource {
     public static final String PREFIX = "stream2file";
     public static final String SUFFIX = ".tmp";
 
+    public ScmPrototypeResource() {
+    }
+
     public ScmPrototypeResource(ScmPrototypeService scmPrototypeService) {
         this.scmPrototypeService = scmPrototypeService;
     }
@@ -56,7 +59,7 @@ public class ScmPrototypeResource {
 
     protected List<List<String>> getCSVContent(InputStream fileInputStream) throws IOException {
         CSVReader reader = null;
-        List<List<String>> content = new ArrayList<>();
+        List<List<String>> content = new ArrayList<List<String>>();
         try {
 
             reader = new CSVReader(new InputStreamReader(fileInputStream), ',');
@@ -64,7 +67,7 @@ public class ScmPrototypeResource {
             //Read one line at a time
 
             while ((nextLine = reader.readNext()) != null) {
-                List<String> line = new ArrayList<>();
+                List<String> line = new ArrayList<String>();
                 for (String token : nextLine) {
                     line.add(token);
                 }
