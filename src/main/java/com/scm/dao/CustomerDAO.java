@@ -10,7 +10,7 @@ import java.util.List;
 public interface CustomerDAO {
 
     // add Customer
-    void add(Customer customer);
+    long add(Customer customer);
 
     // add list of Customer
     void add(List<Customer> customers);

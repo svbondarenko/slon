@@ -28,4 +28,9 @@ public class ScmPrototypeServiceImpl implements ScmPrototypeService {
 
         costumerDao.add(customers);
     }
+
+    @Override
+    public Customer getCustomer(int id) {
+        return costumerDao.getById(id);
+    }
 }

@@ -13,18 +13,26 @@ import java.util.List;
  */
 public class SpringJdbcAppTest {
 
+
     public static void main(String[] args) {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
         CustomerDAO customerDAO = (CustomerDAO) context.getBean("customerDAO");
 
-        // simple insert
+        SpringJdbcAppTest app = new SpringJdbcAppTest();
 
+        long id = app.simpleInsert(customerDAO);
+        System.out.println("Created customer " + id);
+//        app.batchInsert(customerDAO);
+//        app.selectAll(customerDAO);
+    }
+
+    private long simpleInsert(CustomerDAO customerDAO) {
         Customer customer1 = new Customer(1, "BBC", 11);
-        customerDAO.add(customer1);
+        return customerDAO.add(customer1);
+    }
 
-        // batch insert
-
+    private void batchInsert(CustomerDAO customerDAO) {
         Customer customer2 = new Customer(2, "CNN", 22);
         Customer customer3 = new Customer(3, "TSN", 33);
         Customer customer4 = new Customer(4, "AJZ", 44);
@@ -36,9 +44,9 @@ public class SpringJdbcAppTest {
         customers.add(customer4);
 
         customerDAO.add(customers);
+    }
 
-        // select all
-
+    private void selectAll(CustomerDAO customerDAO) {
         List<Customer> all = customerDAO.getAll();
         for (Customer customer : all) {
             System.out.println(customer);

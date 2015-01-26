@@ -2,6 +2,7 @@ package com.scm.rest;
 
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;
+import com.scm.model.Customer;
 import com.scm.service.ScmPrototypeService;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.stereotype.Component;
@@ -37,6 +38,20 @@ public class ScmPrototypeResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response test() {
         return Response.status(200).entity("Hello word").build();
+    }
+
+    @GET
+    @Path("customer")
+    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCustomer(@QueryParam("id") Integer id) {
+
+        if (id == null)
+            return Response.status(Response.Status.BAD_REQUEST).entity("id is empty").build();
+
+        Customer customer = scmPrototypeService.getCustomer(id);
+
+        return Response.status(200).entity(customer.toString()).build();
     }
 
     @POST

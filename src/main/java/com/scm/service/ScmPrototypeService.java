@@ -10,4 +10,6 @@ import java.util.List;
 public interface ScmPrototypeService {
 
     public  void add(List<List<String>> csvData);
+
+    public Customer getCustomer(int id);
 }
